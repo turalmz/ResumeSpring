@@ -81,7 +81,7 @@
                     </button>
                 </td>
                 <td style="width:5px">
-                    <form action="userdetail" method="GET">
+                    <form action="./userdetail" method="GET">
                         <input type="hidden" name="id" value="<%=u.getId()%>"/>
                         <input type="hidden" name="action" value="update"/>
                         <button class="btn btn-secondary" type="submit" value="update">
@@ -112,7 +112,7 @@
                 Are you sure?
             </div>
             <div class="modal-footer">
-                <form action="userdetail" method="POST">
+                <form action="users" method="POST">
                     <input type="hidden" name="id" value="" id="idForDelete"/>
                     <input type="hidden" name="action" value="delete"/>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
