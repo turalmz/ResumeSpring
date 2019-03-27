@@ -1,5 +1,7 @@
 package com.company;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.company.entity.Country;
 import com.company.entity.User;
 import com.company.service.inter.UserServiceInter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,15 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value="/users")//users?name=Sarkhan
     public ModelAndView post(
             @RequestParam(value="id", required = false) Integer Id,
+            @RequestParam(value="name", required = false) String firstname ,
+            @RequestParam(value="surname", required = false) String lastname,
+            @RequestParam(value="profile", required = false) String profile,
+            @RequestParam(value="address", required = false) String address,
+            @RequestParam(value="phone", required = false) String phone,
+            @RequestParam(value="password", required = false) String password,
+            @RequestParam(value="email", required = false) String email,
+            @RequestParam(value="nationality", required = false) Integer nationalityId,
+            @RequestParam(value="country", required = false) Integer countryId,
 
             @RequestParam(value="action", required = false) String action){
 
@@ -49,23 +60,66 @@ public class UserController {
 
         }
 
-        User user = null;
-        if(action=="insert") {
+        User us = userService.getById(Id);
+        if(action=="add") {
 
-            user = null;// new User(null,)
+            us = new User(0);
+
+            us.setFirstname(firstname);
+
+            us.setLastname(lastname);
+
+            us.setProfileDescription(profile);
+
+            String bcryptHashString = BCrypt.withDefaults().hashToString(4, password.toCharArray());
+
+            us.setPassword(bcryptHashString);
+
+            us.setAddress(address);
+
+            us.setPhone(phone);
+
+            us.setEmail(email);
+
+            us.setBirthPlace(new Country(countryId));
+
+            us.setNationality(new Country(nationalityId));
+
+            userService.addUser(us);
+
+
+            System.out.println("here we are");
+            System.out.println("userdetail?id=" + us.getId());
+
         }else if(action=="update") {
-            user = userService.getById(Id);
+            us = userService.getById(Id);
 
-            userService.updateUser(user);
+            us.setFirstname(firstname);
+
+            us.setLastname(lastname);
+
+            us.setProfileDescription(profile);
+
+            String bcryptHashString = BCrypt.withDefaults().hashToString(4, password.toCharArray());
+
+            us.setPassword(bcryptHashString);
+
+            us.setAddress(address);
+
+            us.setPhone(phone);
+
+            us.setEmail(email);
+
+            us.setBirthPlace(new Country(countryId));
+
+            us.setNationality(new Country(nationalityId));
+            userService.updateUser(us);
         }else if (action.equals("delete")){
             System.err.println(Id);
 
             userService.removeUser(Id);
             System.err.println("deleted");
         }else{
-            System.err.println(Id);
-            System.err.println("no deleted");
-            System.err.println(action);
 
         }
 
