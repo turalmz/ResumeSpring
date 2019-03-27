@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @Repository
-//@Qualifier("userDao1")
+@Qualifier("skillDao")
 public class SkillRepositoryCustomImpl implements SkillRepositoryCostum {
 
 
@@ -80,7 +80,8 @@ public class SkillRepositoryCustomImpl implements SkillRepositoryCostum {
     @Override
     public boolean insertSkill(Skill skl) {
         em.persist(skl);
-        return true;    }
+        return true;
+    }
 
 
 }
