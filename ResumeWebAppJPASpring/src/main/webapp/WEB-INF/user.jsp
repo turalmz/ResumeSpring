@@ -27,8 +27,8 @@
 </head>
 <%
     User user = (User)request.getAttribute("user");
-    List<UserSkill> userSkillList  = (List<UserSkill>)request.getAttribute("userSkillList");
-    List<EmploymentHistory>  empHistoryList = (List<EmploymentHistory>)request.getAttribute("empHistoryList");
+    //List<UserSkill> userSkillList  = (List<UserSkill>)request.getAttribute("userSkillList");
+    //List<EmploymentHistory>  empHistoryList = (List<EmploymentHistory>)request.getAttribute("empHistoryList");
     List<Skill> skillList = (List<Skill>)request.getAttribute("skillList");
     List<Country> countryList = (List<Country>)request.getAttribute("countryList");
 %>
@@ -139,10 +139,10 @@
                         <%        if(country.getId()==user.getNationality().getId()){ %>
 
 
-                        <option selected value="<%=country.getId()%>"><%=country.getNatinality()%></option>
+                        <option selected value="<%=country.getId()%>"><%=country.getNationality()%></option>
 
                         <%  }else{ %>
-                        <option value="<%=country.getId()%>"><%=country.getNatinality()%></option>
+                        <option value="<%=country.getId()%>"><%=country.getNationality()%></option>
                         <%
                                 }
                             }
@@ -227,7 +227,7 @@
                     </tr>
                     </thead>
                     <%
-                        for(UserSkill us:userSkillList){
+                        for(UserSkill us:user.getUserSkillList()){
                     %>
                     <thead>
                     <tr>
@@ -310,7 +310,7 @@
                     </tr>
                     </thead>
                     <%
-                        for(EmploymentHistory us:empHistoryList){
+                        for(EmploymentHistory us:user.getempHistoryList){
                     %>
                     <thead>
                     <tr>
